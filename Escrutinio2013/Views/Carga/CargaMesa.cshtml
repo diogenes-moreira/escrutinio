@@ -1,0 +1,85 @@
+﻿@model Escrutinio2013.Models.Mesa
+@{
+    Layout = null;
+}
+
+    @using(( Ajax.BeginForm("Persistir",
+                            new AjaxOptions{HttpMethod = "POST",
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "Tabla"}
+                                            )))
+    {
+         <h4>@Model.Escuela.Nombre &nbsp;( @Model.Escuela.Circuito )</h4>
+        <table>
+            <tr>
+                <th>N&deg;</th>
+                <th>Agrupaci&oacute;n Politica</th>
+                <th>N&deg;</th>
+                @foreach(var categoria in Model.CategoriasHabilitadas().OrderBy(cat => cat.Orden))
+                {
+                    <th>@categoria.Nombre</th>
+                }
+            </tr>
+            @foreach(var lista in Model.ListasHabilitadas().OrderBy(lis => lis.Orden))
+            {
+            
+                <tr>
+                    <td>
+                        @lista.Partido.Numero
+                    </td>
+                    <td>
+                        @lista.Partido.Nombre
+                    </td>
+                    <td>
+                        @lista.Nombre
+                    </td>
+                    @{   var prop = new Dictionary<string, object> { { "class", "carga" }, { "id", "primero" } };
+                   
+                        foreach (var categoria in Model.CategoriasHabilitadas().OrderBy(cat => cat.Orden))
+                        {
+                            <td>@{
+                                    try
+                                    {
+                                        var escrutinio = Model.Escrutinio(lista, categoria);
+                                        @Html.TextBox("escrutinio_" + escrutinio.Id, escrutinio.Cantidad, prop)
+                                        prop.Remove("id");
+                                    }
+                                    catch
+                                    {
+                                        <p class="noCargar"> No Cargar </p>
+                                    }
+                                }
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </table>
+        <input type="submit" value="Guardar"/>
+    }
+<script>
+    $('.carga').focus(function () {
+        $(this).select();
+    }).mouseup(function (e) {
+        e.preventDefault();
+    }).live("keypress", function (e) {
+        /* ENTER PRESSED*/
+        if (e.keyCode == 13) {
+            /* FOCUS ELEMENT */
+            var inputs = $(this).parents("form").eq(0).find(":input");
+            var idx = inputs.index(this);
+
+            if (idx == inputs.length - 1) {
+                inputs[0].select();
+            } else {
+                inputs[idx + 1].focus(); //  handles submit buttons
+                inputs[idx + 1].select();
+            }
+            return false;
+        }
+        return true;
+    });
+    ;
+    $('#primero').focus();
+</script>
+

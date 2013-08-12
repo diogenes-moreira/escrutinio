@@ -1,0 +1,53 @@
+﻿@model Escrutinio2013.Models.Escuela[]
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reporte de Control</title>
+        <style>
+
+            @@media all {
+                body{
+                font-family: Calibri
+                }
+
+                div.saltopagina{
+                    display: none;
+                }
+
+                
+               .numero{
+	                float:left;
+	                width: 120px;	
+                }
+            }
+   
+          @@media print{
+            div.saltopagina{ 
+                display:block; 
+                page-break-before:always;
+            }
+          }
+        </style>
+
+    </head>
+    <body>
+        @foreach(var escuela in Model){
+	<h1>Gurzi 2013</h1>	
+	<h1>Escuela: @escuela.Nombre (@escuela.Circuito)</h1>
+        <h1>Direcci&oacute;n: @escuela.Direccion @escuela.Localidad.Nombre</h1>
+        <h1>Entrega:</h1>
+        <h1>Recibe:</h1>
+        <h1>Mesas Desde @escuela.MesaDesde Hasta @escuela.MesaHasta </h1> 
+        foreach(var mesa in escuela.Mesas ){
+            <div class="numero"><h1><span style="font-size: 48px;">&#9633;</span> @mesa.Numero&nbsp;</h1><br /></div>
+	    }
+	<div class="saltopagina"></div>        	
+	
+       }
+</body>
+</html>
