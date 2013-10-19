@@ -40,7 +40,53 @@ namespace Escrutinio2013.Models
         }
 
 
-        public static void CrearPartidosPoliticos()
+        public static void CrearPartidos()
+        {
+            
+            CreaCombo("UNIDOS POR LA LIBERTAD Y EL TRABAJO", 1, "501");
+            CreaCombo("FRENTE PARA LA VICTORIA", 2, "503");
+            CreaCombo("JUNTOS POR QUILMES", 3, "763",_consejales);
+            CreaCombo("FRENTE SOCIAL DE LA PCIA. DE BS. AS.", 4, "1708",_consejales);
+            CreaCombo("FRENTE RENOVADOR", 5, "504");
+            CreaCombo("UNION POPULAR", 6, "23", _consejales);
+            CreaCombo("FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES", 7, "506");
+            CreaCombo("UNION CON FE", 8, "508",_diputadosNacionales);
+            CreaCombo("FRENTE PROGRESISTA CIVICO Y SOCIAL", 9, "509");
+            CreaCombo("FRENTE POPULAR DEMOCRATICO Y SOCIAL - PODEMOS", 10, "1703", new List<Categoria>{_legisladoresProvinciales, _consejales});
+            CreaCombo("COMPROMISO FEDERAL", 11, "1701");
+            CrearNoComputables();
+
+        }
+
+        private static void CreaCombo(string nombre, int orden, string numeroLista, IEnumerable<Categoria> categorias)
+        {
+            var lista = CreateHeader(nombre, orden, numeroLista);
+            CrearEscrutinios(lista,categorias);
+        }
+
+        private static Lista CreateHeader(string nombre, int orden, string numeroLista)
+        {
+            var partido = CrearPartido(nombre, orden, numeroLista);
+            var lista = CrearLista(nombre, orden, partido,true);
+            return lista;
+        }
+
+        public static void CreaCombo(string nombre, int orden, string numeroLista)
+        {
+            var lista = CreateHeader(nombre, orden, numeroLista);
+            CrearEscrutinios(lista);
+        }
+
+
+        public static void CreaCombo(string nombre, int orden, string numeroLista, Categoria categoria)
+        {
+            var lista = CreateHeader(nombre, orden, numeroLista);
+            CrearEscrutinios(lista,categoria);
+        }
+
+
+
+        public static void CrearPartidosPoliticosPaso2013()
         {
             var partido = CrearPartido("GENTE EN ACCION - GEA", 1, "272");
             var lista = CrearLista("LISTA AZUL",1,partido);
@@ -105,14 +151,17 @@ namespace Escrutinio2013.Models
             CrearEscrutinios(lista, _consejales);
 
             
-            partido = CrearPartido("VOTOS NO COMPUTABLES", 90, " ",true);
+            CrearNoComputables();
+        }
+
+        private static void CrearNoComputables()
+        {
+            var partido = CrearPartido("VOTOS NO COMPUTABLES", 90, " ", true);
             CrearLista("VOTOS EN BLANCO", 91, partido);
             CrearLista("VOTOS NULOS", 92, partido);
             CrearLista("VOTOS RECURRIDOS QUE SE REMITEN EN SOBRE Nro.3", 93, partido);
             CrearLista("VOTOS DE IDENTIDAD IMPUGNADA QUE SE REMITEN EN SOBRE Nro.3", 94, partido);
-            CrearEscrutinios(partido) ;
-
-
+            CrearEscrutinios(partido);
         }
 
 
