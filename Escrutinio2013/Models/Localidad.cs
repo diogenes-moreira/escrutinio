@@ -11,7 +11,7 @@ namespace Escrutinio2013.Models
         public int Id { get; set; }
         [Property(Length = 255)]
         public String Nombre { get; set; }
-        [BelongsTo("PartidoId", Lazy = FetchWhen.OnInvoke)]
+        [BelongsTo("PartidoId", Lazy = FetchWhen.OnInvoke, Cascade = CascadeEnum.All)]
         public Partido Partido { get; set; }
         [Property]
         public int CodigoPostal { get; set; }
