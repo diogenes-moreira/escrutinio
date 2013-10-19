@@ -30,17 +30,17 @@ namespace Escrutinio2013.Models
         
         public static void CrearCategorias()
         {
-            _diputadosNacionales = new Categoria { Nombre = "Diputados Nacionales",Orden = 1, Simplificado = true};
+            _diputadosNacionales = new Categoria { Nombre = "Diputados Nacionales",Orden = 1};
             _diputadosNacionales.Save();
-            _legisladoresProvinciales = new Categoria { Nombre = "Legisladores Provinciales", Orden = 2, Simplificado = false};
+            _legisladoresProvinciales = new Categoria { Nombre = "Legisladores Provinciales", Orden = 2};
             _legisladoresProvinciales.Save();
-            _consejales = new Categoria { Nombre = "Consejales y Consejeros Escolares", Orden = 3, Simplificado = true};
+            _consejales = new Categoria { Nombre = "Consejales y Consejeros Escolares", Orden = 3};
             _consejales.Save();
 
         }
 
 
-        public static void CrearPartidosPoliticos()
+        public static void CrearPartidos()
         {
             
             CreaCombo("UNIDOS POR LA LIBERTAD Y EL TRABAJO", 1, "501");

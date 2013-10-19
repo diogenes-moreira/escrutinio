@@ -1,0 +1,2 @@
+﻿Informe para chequear las Mesas de una Escuela
+Informe para las mesas entregadas, por mesa

@@ -8,12 +8,10 @@ namespace Escrutinio2013.Models
     {
         [PrimaryKey(PrimaryKeyType.Identity)]
         public int Id { get; set; }
-        [Property]
+        [Property(Length=255)]
         public String Nombre { get; set; }
         [Property]
         public int Orden { get; set; }
-        [Property]
-        public bool Simplificado { get; set; }
 
     }
 }
