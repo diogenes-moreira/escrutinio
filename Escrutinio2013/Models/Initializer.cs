@@ -11,7 +11,7 @@ namespace Escrutinio2013.Models
         private static Categoria _diputadosNacionales;
         private static Categoria _consejales;
         private static Categoria _legisladoresProvinciales;
-
+        
 
         public static void TratarExtranjero()
         {
@@ -30,17 +30,17 @@ namespace Escrutinio2013.Models
         
         public static void CrearCategorias()
         {
-            _diputadosNacionales = new Categoria { Nombre = "Diputados Nacionales",Orden = 1};
+            _diputadosNacionales = new Categoria { Nombre = "Diputados Nacionales",Orden = 1, Simplificado = true};
             _diputadosNacionales.Save();
-            _legisladoresProvinciales = new Categoria { Nombre = "Legisladores Provinciales", Orden = 2};
+            _legisladoresProvinciales = new Categoria { Nombre = "Legisladores Provinciales", Orden = 2, Simplificado = false};
             _legisladoresProvinciales.Save();
-            _consejales = new Categoria { Nombre = "Consejales y Consejeros Escolares", Orden = 3};
+            _consejales = new Categoria { Nombre = "Consejales y Consejeros Escolares", Orden = 3, Simplificado = true};
             _consejales.Save();
 
         }
 
 
-        public static void CrearPartidos()
+        public static void CrearPartidosPoliticos()
         {
             
             CreaCombo("UNIDOS POR LA LIBERTAD Y EL TRABAJO", 1, "501");
@@ -54,7 +54,12 @@ namespace Escrutinio2013.Models
             CreaCombo("FRENTE PROGRESISTA CIVICO Y SOCIAL", 9, "509");
             CreaCombo("FRENTE POPULAR DEMOCRATICO Y SOCIAL - PODEMOS", 10, "1703", new List<Categoria>{_legisladoresProvinciales, _consejales});
             CreaCombo("COMPROMISO FEDERAL", 11, "1701");
-            CrearNoComputables();
+            var partido = CrearPartido("VOTOS NO COMPUTABLES", 90, " ", true);
+            CrearEscrutinios(CrearLista("VOTOS EN BLANCO", 91, partido,true));
+            CrearEscrutinios(CrearLista("VOTOS NULOS", 92, partido,true));
+            CrearEscrutinios(CrearLista("VOTOS RECURRIDOS QUE SE REMITEN EN SOBRE Nro.3", 93, partido,true));
+            CrearEscrutinios(CrearLista("VOTOS DE IDENTIDAD IMPUGNADA QUE SE REMITEN EN SOBRE Nro.3", 94, partido,true));
+            
 
         }
 

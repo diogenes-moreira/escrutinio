@@ -12,6 +12,8 @@ namespace Escrutinio2013.Models
         public String Nombre { get; set; }
         [Property]
         public int Orden { get; set; }
+        [Property]
+        public bool Simplificado { get; set; }
 
     }
 }

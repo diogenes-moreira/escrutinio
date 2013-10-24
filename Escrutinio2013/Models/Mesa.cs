@@ -42,6 +42,12 @@ namespace Escrutinio2013.Models
             return EscrutiniosHabilitados.Select(e => e.Categoria).Distinct().ToList();
         }
 
+        public IList<Categoria> CategoriasSimplificadas()
+        {
+            return EscrutiniosHabilitados.Select(e => e.Categoria).Distinct().Where(l => l.Simplificado).ToList();
+        }
+
+
         public IList<Lista> ListasHabilitadas()
         {
             return EscrutiniosHabilitados.Select(e => e.Lista).Distinct().ToList();
